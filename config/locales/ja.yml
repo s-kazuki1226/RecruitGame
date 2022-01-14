@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        model: 機種
+        game_id: Game_id
+        comment: コメント

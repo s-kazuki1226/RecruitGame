@@ -1,0 +1,72 @@
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 offset-sm-1 pt-5">
+        <h4>SUPER PEOPLEのフレンドの募集にお使い下さい。</h4>
+      </div>
+      <div class="col-sm-3">
+        <div class="text-end pt-5"> 
+          <%= link_to "http://twitter.com/share?url=#{request.url}/&text=SUPER PEOPLE用 フレンド募集掲示板/", title: 'Twitter', target: '_blank' do %>
+            <i class="fab fa-twitter btn btn-primary"> ツイート</i>
+          <% end %>
+        </div>
+      </div>  
+      <div class="col-sm-10 offset-sm-1 pt-3 pb-2 mt-4 mb-5 border rounded border-4">
+        <%= form_with(model: @user) do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+          <div class="mb-3 ">
+            <%= f.label :model, :"機種" %><br>
+            <%= f.select :model, [["PC", "PC"], ["PS4", "PS4"], ["スマホ", "スマホ"], ["Switch", "Switch"]] ,class: "form-control" %>
+          </div>
+            <div class="mb-3">
+            <%= f.label :game_id, 'Game_id' %>
+            <%= f.text_field :game_id, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :discord_id, 'Discord_id' %>
+            <%= f.text_field :discord_id, placeholder: "省略可", class: 'form-control' %>
+          </div>
+          <div class="mb-3">  
+            <%= f.label :comment, :"コメント" %>
+            <%= f.text_area :comment, placeholder: "省略可", class: 'form-control', rows: 2 %>
+          </div>  
+          <%= f.submit '投稿！', class: 'btn btn-primary w-15' %>
+        <% end %>
+        <p class="pt-3">※ 機種を選択し、GameIDを記載の上募集してください。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 mt-5">
+        <h4>募集掲示板</h4>
+        <table class="table mt-3">
+          <tr>
+            <th class="text-center">No.</th>
+            <th>投稿日時</th>
+            <th>機種</th>
+            <th>Game_id</th>
+            <th>Discord_id</th>
+            <th>comment</th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <td class="text-center p-3"><%= user.id %></td>
+              <td class="p-3"><%= user.created_at.to_s(:datetime_jp) %></td>
+              <td class="p-3"><%= user.model %></td>
+              <td class="p-3"><%= user.game_id %></td>
+              <td class="p-3"><%= user.discord_id %></td>
+              <td class="p-3">
+                <div class="comment">
+                  <%= simple_format(user.comment) %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    </div>
+  </div>
+</div>  
