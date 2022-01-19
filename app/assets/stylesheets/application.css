@@ -11,6 +11,11 @@ body {
   border-radius:30px;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 .comment {
   width: 100%;
   overflow-wrap: break-word;
